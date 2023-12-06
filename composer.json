@@ -24,6 +24,7 @@
         "orchestra/testbench": "^7"
     },
     "require": {
-        "live-controls/utils": "^1.0"
+        "live-controls/utils": "^1.0",
+        "guzzlehttp/guzzle": "^7.8"
     }
 }
