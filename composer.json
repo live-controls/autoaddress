@@ -1,0 +1,29 @@
+{
+    "name": "live-controls/autoaddress",
+    "description": "Autofill Address Form",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "LiveControls\\AutoAddress\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Roman Wanner",
+            "email": "60240491+daredloco@users.noreply.github.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LiveControls\\AutoAddress\\AutoAddressServiceProvider"
+            ]
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^7"
+    },
+    "require": {
+        "live-controls/utils": "^1.0"
+    }
+}
