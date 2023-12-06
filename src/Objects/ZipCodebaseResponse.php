@@ -19,5 +19,11 @@ class ZipCodebaseResponse
         {
             array_push($this->results, new ZipCodebaseResult($result));
         }
+        $this->status = "ok";
+    }
+
+    public function isValid(): bool
+    {
+        return $this->status == "ok";
     }
 }
