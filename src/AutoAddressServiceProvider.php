@@ -6,7 +6,7 @@ use LiveControls\AutoAddress\Http\Livewire\AutoAddress;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
-class AutoAddressProvider extends ServiceProvider
+class AutoAddressServiceProvider extends ServiceProvider
 {
   public function register()
   {
