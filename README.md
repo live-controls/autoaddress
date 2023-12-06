@@ -1,4 +1,4 @@
-# Auto CEP
+# Auto Address
  ![Release Version](https://img.shields.io/github/v/release/live-controls/autoaddress)
  ![Packagist Version](https://img.shields.io/packagist/v/live-controls/autoaddress?color=%23007500)
 
