@@ -5,7 +5,6 @@ use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Log;
-use LiveControls\Utils\Utils;
 
 class ZipCodebase
 {
