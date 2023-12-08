@@ -9,5 +9,6 @@ return [
     'complement' => 'Zusatz',
     'area' => 'Bezirk',
     'city' => 'Stadt',
-    'state' => 'Bundesland'
+    'state' => 'Bundesland',
+    'country' => 'Land'
 ];
