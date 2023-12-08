@@ -25,6 +25,7 @@
     },
     "require": {
         "live-controls/utils": "^1.0",
-        "guzzlehttp/guzzle": "^7.8"
+        "guzzlehttp/guzzle": "^7.8",
+        "livewire/livewire": ">=2.12"
     }
 }

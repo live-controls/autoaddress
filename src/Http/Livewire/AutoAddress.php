@@ -2,11 +2,8 @@
 
 namespace LiveControls\AutoAddress\Http\Livewire;
 
-use LiveControls\AutoCep\Scripts\GetCEP;
-use Illuminate\Support\Facades\Log;
 use LiveControls\AutoAddress\Objects\CepAbertoResponse;
 use LiveControls\AutoAddress\Objects\ZipCodebaseResponse;
-use LiveControls\AutoAddress\Scripts\CepAberto;
 use LiveControls\Utils\Utils;
 use Livewire\Component;
 
