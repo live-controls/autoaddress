@@ -10,8 +10,10 @@ use LiveControls\Utils\Utils;
 
 class CepAberto
 {
-    public static function fromCep(int $cep, string $token = null): array
+    public static function fromCep(int|string $cep, string $token = null): array
     {
+        $cep = preg_replace('/[^0-9]/', '', $cep); //Remove everything but numbers
+
         if(Utils::countNumber($cep) != 8)
         {
             return ["statusText" => "invalid"];

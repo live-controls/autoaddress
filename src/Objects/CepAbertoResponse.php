@@ -20,7 +20,7 @@ class CepAbertoResponse
     public readonly string $latitude;
     public readonly string $altitude;
 
-    public function __construct(int $cep)
+    public function __construct(int|string $cep)
     {
         $response = CepAberto::fromCep($cep);
         
