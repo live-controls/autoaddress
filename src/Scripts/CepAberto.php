@@ -17,7 +17,7 @@ class CepAberto
             return ["statusText" => "invalid"];
         }
 
-        $token = env('CEPABERTO_TOKEN', null);
+        $token = config('livecontrols_autoaddress.cepaberto_token',null);
         if(is_null($token)){
             Log::warning("CEPAberto token is not set! You should add CEPABERTO_TOKEN to your .env file");
             return ["statusText" => "token_not_set"];

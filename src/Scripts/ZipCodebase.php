@@ -10,7 +10,7 @@ class ZipCodebase
 {
     public static function fromZip(string $zip, string $country)
     {
-        $token = env('ZIPCODEBASE_TOKEN', null);
+        $token = config('livecontrols_autoaddress.zipcodebase_token',null);
         if(is_null($token)){
             Log::warning("ZIPCODEBASE token is not set! You should add ZIPCODEBASE_TOKEN to your .env file");
             return ["statusText" => "token_not_set"];

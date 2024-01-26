@@ -26,5 +26,9 @@ class AutoAddressServiceProvider extends ServiceProvider
     $this->publishes([
       __DIR__.'/../resources/views' => $this->app->resourcePath('views/vendor/livecontrols-autoaddress')
     ], 'livecontrols.autoaddress.views');
+
+    $this->publishes([
+      __DIR__.'/../config/config.php' => config_path('livecontrols_autoaddress.php'),
+    ], 'livecontrols.autoaddress.config');
   }
 }
