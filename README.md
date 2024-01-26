@@ -51,3 +51,4 @@ The $response object contains the following variables:
 - $longitude => The longitude of the address (Can be null!)
 - $latitude => The latitude of the address (Can be null!)
 - $altitude => The altitude of the address (Can be null!)
+4. If environment variables dont work, try publish the configuration file, this will probably be patched in the future.
