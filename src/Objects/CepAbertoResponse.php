@@ -26,19 +26,19 @@ class CepAbertoResponse
         
         $this->status = $response["statusText"];
         if(array_key_exists("cidade", $response)){
-            $this->ibge = array_key_exists("ibge", $response["cidade"]) ? $response["cidade"]["ibge"] : null;
-            $this->ddd = array_key_exists("ddd", $response["cidade"]) ? $response["cidade"]["ddd"] : null;
-            $this->city = array_key_exists("nome", $response["cidade"]) ? $response["cidade"]["nome"] : null;
+            $this->ibge = array_key_exists("ibge", $response["cidade"]) ? $response["cidade"]["ibge"] : "";
+            $this->ddd = array_key_exists("ddd", $response["cidade"]) ? $response["cidade"]["ddd"] : "";
+            $this->city = array_key_exists("nome", $response["cidade"]) ? $response["cidade"]["nome"] : "";
         }
-        $this->street = array_key_exists("logradouro", $response) ? $response["logradouro"] : null;
-        $this->complement = array_key_exists("complemento", $response) ? $response["complemento"] : null;
-        $this->area = array_key_exists("bairro", $response) ? $response["bairro"] : null;
+        $this->street = array_key_exists("logradouro", $response) ? $response["logradouro"] : "";
+        $this->complement = array_key_exists("complemento", $response) ? $response["complemento"] : "";
+        $this->area = array_key_exists("bairro", $response) ? $response["bairro"] : "";
         if(array_key_exists("estado", $response)){
-            $this->state = array_key_exists("sigla", $response["estado"]) ? $response["estado"]["sigla"] : null;
+            $this->state = array_key_exists("sigla", $response["estado"]) ? $response["estado"]["sigla"] : "";
         }
-        $this->longitude = array_key_exists("longitude", $response) ? $response["longitude"] : null;
-        $this->latitude = array_key_exists("latitude", $response) ? $response["latitude"] : null;
-        $this->altitude = array_key_exists("altitude", $response) ? $response["altitude"] : null;
+        $this->longitude = array_key_exists("longitude", $response) ? $response["longitude"] : "";
+        $this->latitude = array_key_exists("latitude", $response) ? $response["latitude"] : "";
+        $this->altitude = array_key_exists("altitude", $response) ? $response["altitude"] : "";
         $this->cep = $cep;
     }
 
