@@ -4,6 +4,9 @@ namespace LiveControls\AutoAddress\Objects;
 
 use LiveControls\AutoAddress\Scripts\CepAberto;
 
+/**
+ * @deprecated 1.0.1 Host at cepaberto.com does not longer work
+ */
 class CepAbertoResponse
 {
     public readonly string $status;

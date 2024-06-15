@@ -8,6 +8,9 @@ use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Log;
 use LiveControls\Utils\Utils;
 
+/**
+ * @deprecated 1.0.1 Host at cepaberto.com does not longer work
+ */
 class CepAberto
 {
     public static function fromCep(int|string $cep, string $token = null): array
