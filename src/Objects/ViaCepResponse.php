@@ -13,6 +13,7 @@ class ViaCepResponse
     public readonly string $siafi;
     public readonly string $ddd;
     public readonly string $street;
+    public readonly string $complement;
     public readonly string $area;
     public readonly string $city;
     public readonly string $state;
@@ -23,6 +24,7 @@ class ViaCepResponse
         $response = ViaCep::fromCep($cep);
         $this->status = $response["statusText"];
         $this->cep = $cep;
+        $this->complement = $response["complemento"];
         $this->ibge = $response["ibge"];
         $this->gia = $response["gia"];
         $this->siafi = $response["siafi"];
