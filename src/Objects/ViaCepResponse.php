@@ -24,15 +24,15 @@ class ViaCepResponse
         $response = ViaCep::fromCep($cep);
         $this->status = $response["statusText"];
         $this->cep = $cep;
-        $this->complement = $response["complemento"];
-        $this->ibge = $response["ibge"];
-        $this->gia = $response["gia"];
-        $this->siafi = $response["siafi"];
-        $this->ddd = $response["ddd"];
-        $this->street = $response["logradouro"];
-        $this->area = $response["bairro"];
-        $this->city = $response["localidade"];
-        $this->state = $response["uf"];
+        $this->complement = array_key_exists("complemento", $response) ? $response["complemento"] : null;
+        $this->ibge = array_key_exists("ibge", $response) ? $response["ibge"] : null;
+        $this->gia = array_key_exists("gia", $response) ? $response["gia"] : null;
+        $this->siafi = array_key_exists("siafi", $response) ? $response["siafi"] : null;
+        $this->ddd = array_key_exists("ddd", $response) ? $response["ddd"] : null;
+        $this->street = array_key_exists("logradouro", $response) ? $response["logradouro"] : null;
+        $this->area = array_key_exists("bairro", $response) ? $response["bairro"] : null;
+        $this->city = array_key_exists("localidade", $response) ? $response["localidade"] : null;
+        $this->state = array_key_exists("uf", $response) ? $response["uf"] : null;
         $this->country = "BR";
     }
 
