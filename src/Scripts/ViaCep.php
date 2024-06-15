@@ -9,7 +9,7 @@ use LiveControls\Utils\Utils;
 
 class ViaCep
 {
-    public static function fromCep(int|string $cep, string $token = null): array
+    public static function fromCep(int|string $cep): array
     {
         $cep = preg_replace('/[^0-9]/', '', $cep); //Remove everything but numbers
         if(Utils::countNumber($cep) != 8)
