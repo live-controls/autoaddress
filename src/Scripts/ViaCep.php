@@ -19,7 +19,7 @@ class ViaCep
         $client = new Client();
 
         try{
-            $response = $client->request('GET', 'https://viacep.com.br/ws/'.$cep.'/json/ ', [
+            $response = $client->request('GET', 'https://viacep.com.br/ws/'.$cep.'/json', [
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
