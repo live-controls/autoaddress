@@ -17,7 +17,7 @@ class CepAberto
     {
         $cep = preg_replace('/[^0-9]/', '', $cep); //Remove everything but numbers
 
-        if(Utils::countNumber($cep) != 8)
+        if(strlen($cep) != 8)
         {
             return ["statusText" => "invalid"];
         }
