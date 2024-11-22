@@ -16,6 +16,7 @@ class ViaCepResponse
     public readonly string $complement;
     public readonly string $area;
     public readonly string $city;
+    public readonly string $uf;
     public readonly string $state;
     public readonly string $country;
 
@@ -32,7 +33,8 @@ class ViaCepResponse
         $this->street = array_key_exists("logradouro", $response) ? $response["logradouro"] : "";
         $this->area = array_key_exists("bairro", $response) ? $response["bairro"] : "";
         $this->city = array_key_exists("localidade", $response) ? $response["localidade"] : "";
-        $this->state = array_key_exists("uf", $response) ? $response["uf"] : "";
+        $this->uf = array_key_exists("uf", $response) ? $response["uf"] : "";
+        $this->state = array_key_exists("state", $response) ? $response["state"] : "";
         $this->country = "BR";
     }
 
