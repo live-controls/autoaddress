@@ -47,6 +47,7 @@ The $response object contains the following variables:
 - $area => The area of the address
 - $city => The city of the address
 - $state => The state of the address
+- $uf => The UF of the address
 - $country => The country of the address (In case of CepAberto its always Brazil)
 - $longitude => The longitude of the address (Can be null!)
 - $latitude => The latitude of the address (Can be null!)
