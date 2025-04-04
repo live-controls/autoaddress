@@ -3,6 +3,7 @@
 namespace LiveControls\AutoAddress\Objects;
 
 use Exception;
+use LiveControls\Utils\Utils;
 
 class StateHandler
 {
@@ -56,5 +57,23 @@ class StateHandler
             throw new Exception("State with UF '".$uf."' does not exist!");
         }
         return static::STATES[$uf];
+    }
+
+    /**
+     * Tries to revert a state name to an UF
+     *
+     * @param string $state
+     * @return string
+     */
+    public static function revert(string $state): string
+    {
+        $normalizedState = Utils::normalizeString($state);
+        foreach (static::STATES as $uf => $name) {
+            if (Utils::normalizeString($name) === $normalizedState) {
+                return $uf;
+            }
+        }
+        throw new Exception("Can't find UF for '".$state."'!");
+
     }
 }
