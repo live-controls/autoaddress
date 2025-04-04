@@ -1687,16 +1687,16 @@
         },
         {
             "name": "live-controls/utils",
-            "version": "v1.3.18",
+            "version": "v1.3.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/live-controls/utils.git",
-                "reference": "73b16ec9c6f1156151802bdd852318302c5a2d16"
+                "reference": "3a3680f3f88052556333e731feb1633ab9451f1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/live-controls/utils/zipball/73b16ec9c6f1156151802bdd852318302c5a2d16",
-                "reference": "73b16ec9c6f1156151802bdd852318302c5a2d16",
+                "url": "https://api.github.com/repos/live-controls/utils/zipball/3a3680f3f88052556333e731feb1633ab9451f1a",
+                "reference": "3a3680f3f88052556333e731feb1633ab9451f1a",
                 "shasum": ""
             },
             "require-dev": {
@@ -1725,9 +1725,9 @@
             "description": "Utils package for live-controls",
             "support": {
                 "issues": "https://github.com/live-controls/utils/issues",
-                "source": "https://github.com/live-controls/utils/tree/v1.3.18"
+                "source": "https://github.com/live-controls/utils/tree/v1.3.19"
             },
-            "time": "2025-04-04T17:22:19+00:00"
+            "time": "2025-04-04T18:02:30+00:00"
         },
         {
             "name": "livewire/livewire",
