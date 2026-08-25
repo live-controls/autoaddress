@@ -37,10 +37,10 @@ class ViaCepResponse
         $this->state = array_key_exists("state", $response) ? $response["state"] : "";
 
         if(empty($this->uf) && !empty($this->state)){
-            StateHandler::revert($this->state);
+            $this->uf = StateHandler::revert($this->state);
         }
         if(empty($this->state) && !empty($this->uf)){
-            StateHandler::find($this->uf);
+            $this->state = StateHandler::find($this->uf);
         }
         
         $this->country = "BR";
