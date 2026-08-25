@@ -1,10 +1,7 @@
 <?php
 namespace LiveControls\AutoAddress\Scripts;
 
-use Exception;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 
 class ZipCodebase
 {
@@ -12,37 +9,18 @@ class ZipCodebase
     {
         $token = config('livecontrols_autoaddress.zipcodebase_token',null);
         if(is_null($token)){
-            Log::warning("ZIPCODEBASE token is not set! You should add ZIPCODEBASE_TOKEN to your .env file");
             return ["statusText" => "token_not_set"];
         }
 
-        $client = new Client();
+        $response = Http::withHeaders([
+            'apikey' => $token,
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+        ])->get('https://api.zipcodestack.com/v1/search', ['codes' => $zip, 'country' => $country]);
+        
 
-        try{
-            $response = $client->request('GET', 'https://api.zipcodestack.com/v1/search', [
-                'headers' => [
-                    'apikey' => $token,
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                ],
-                'query' => [
-                    'codes'=> $zip,
-                    'country'=> $country,
-                ],
-            ]);
-        }catch(GuzzleException $ex)
+        if(! $response->ok())
         {
-            Log::warning("Couldn\'t fetch ZIPCODEBASE Informations, server said: ".$ex->getMessage());
-            return ["statusText" => "connection_error"];
-        }catch(Exception $ex)
-        {
-            Log::warning("Couldn't fetch ZIPCODEBASE Informations due to an internal error, server said: ".$ex->getMessage());
-            return ["statusText" => "internal_error"];
-        }
-
-        if($response->getStatusCode() != 200)
-        {
-            Log::warning("Couldn't fetch CEP due to a HTTP error, errorcode was: ".$response->getStatusCode());
             return ["statusText" => "http_error"];
         }
         
