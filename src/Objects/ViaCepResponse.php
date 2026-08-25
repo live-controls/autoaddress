@@ -35,6 +35,14 @@ class ViaCepResponse
         $this->city = array_key_exists("localidade", $response) ? $response["localidade"] : "";
         $this->uf = array_key_exists("uf", $response) ? $response["uf"] : "";
         $this->state = array_key_exists("state", $response) ? $response["state"] : "";
+
+        if(empty($this->uf) && !empty($this->state)){
+            StateHandler::revert($this->state);
+        }
+        if(empty($this->state) && !empty($this->uf)){
+            StateHandler::find($this->uf);
+        }
+        
         $this->country = "BR";
     }
 
