@@ -33,16 +33,10 @@ class ViaCepResponse
         $this->street = array_key_exists("logradouro", $response) ? $response["logradouro"] : "";
         $this->area = array_key_exists("bairro", $response) ? $response["bairro"] : "";
         $this->city = array_key_exists("localidade", $response) ? $response["localidade"] : "";
-        $this->uf = array_key_exists("uf", $response) ? $response["uf"] : "";
-        $this->state = array_key_exists("state", $response) ? $response["state"] : "";
-
-        if(empty($this->uf) && !empty($this->state)){
-            $this->uf = StateHandler::revert($this->state);
-        }
-        if(empty($this->state) && !empty($this->uf)){
-            $this->state = StateHandler::find($this->uf);
-        }
-        
+        $uf = array_key_exists("uf", $response) ? $response["uf"] : "";
+        $state = array_key_exists("state", $response) ? $response["state"] : "";
+        $this->uf = empty($uf) && !empty($state) ? StateHandler::revert($state) : $uf;
+        $this->state = empty($this->state) && !empty($this->uf) ? StateHandler::find($this->uf) : $state;    
         $this->country = "BR";
     }
 
