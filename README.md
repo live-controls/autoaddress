@@ -5,7 +5,7 @@
  An Input for Addresses which would give you the informations for road, etc. based on different APIs
 
 ## Requirements
-- Laravel 9+
+- Laravel 11+
 - Livewire 2+
 
 
@@ -27,7 +27,7 @@ composer require live-controls/autoaddress
 TODO
 
 ## Usage
-1. Add CEPABERTO_TOKEN and/or ZIPCODEBASE_TOKEN env variable
+1. Add ZIPCODEBASE_TOKEN env variable if using ZipCodeBase
 2. If you want you can publish the configuration file and change the variables there
 3. Basic Usage:
 ```php
