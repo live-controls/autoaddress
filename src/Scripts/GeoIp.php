@@ -10,7 +10,11 @@ class GeoIp
 {
     private static function isUsable(): bool
     {
-        return config('autoaddress.geoip2_enabled') && config('autoaddress.geoip2_database_path') && file_exists(config('autoaddress.geoip2_database_path'));
+        $databasePath = config('livecontrols_autoaddress.geoip2_database_path');
+
+        return config('livecontrols_autoaddress.geoip2_enabled')
+            && $databasePath
+            && file_exists($databasePath);
     }
 
     public static function getReader(bool $useCache = true, int $cacheTime = 3600): Reader
@@ -20,17 +24,17 @@ class GeoIp
         }
 
         if(! $useCache) {
-            return new Reader(config('autoaddress.geoip2_database_path'));
+            return new Reader(config('livecontrols_autoaddress.geoip2_database_path'));
         }
 
         return Cache::remember('geoip2_reader', $cacheTime, function () {
-            return new Reader(config('autoaddress.geoip2_database_path'));
+            return new Reader(config('livecontrols_autoaddress.geoip2_database_path'));
         });
     }
 
     public static function getRecord(string $ipAddress, bool $useCache = true, int $cacheTime = 3600): ?\GeoIp2\Model\City
     {
-        $reader = self::getReader();
+        $reader = self::getReader($useCache, $cacheTime);
 
         if($useCache) {
             $cacheKey = 'geoip2_record_' . md5($ipAddress);
