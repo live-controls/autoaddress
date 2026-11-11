@@ -1,55 +1,144 @@
-# Auto Address
- ![Release Version](https://img.shields.io/github/v/release/live-controls/autoaddress)
- ![Packagist Version](https://img.shields.io/packagist/v/live-controls/autoaddress?color=%23007500)
+# AutoAddress
 
- An Input for Addresses which would give you the informations for road, etc. based on different APIs
+[![Release Version](https://img.shields.io/github/v/release/live-controls/autoaddress)](https://github.com/live-controls/autoaddress/releases)
+[![Packagist Version](https://img.shields.io/packagist/v/live-controls/autoaddress?color=%23007500)](https://packagist.org/packages/live-controls/autoaddress)
+
+AutoAddress provides Livewire address inputs and PHP helpers for looking up
+postal addresses, ZIP codes, and IP-based location data.
 
 ## Requirements
-- Laravel 11+
-- Livewire 2+
 
-
-## Translations
-- English (en)
-- German (de)
-- Brazilian Portuguese (pt_BR)
-
+- PHP version supported by your Laravel application
+- Laravel 11 or later
+- Livewire 2, 3, or 4
 
 ## Installation
 
-1. Install AutoAddress package
-```ps
+```shell
 composer require live-controls/autoaddress
 ```
 
+The service provider is discovered automatically. Publish the package
+configuration when you need to change defaults:
 
-### Content
-TODO
-
-## Usage
-1. Add ZIPCODEBASE_TOKEN env variable if using ZipCodeBase
-2. If you want you can publish the configuration file and change the variables there
-3. Basic Usage:
-```php
-$cep = 01000001;
-$response = new \LiveControls\AutoAddress\Objects\CepAbertoResponse($cep);
-//or
-$cep = "01000-001"; //Can be a string as well, the CepAberto::fromCep() method will remove everything but numbers
-$response = new \LiveControls\AutoAddress\Objects\CepAbertoResponse($cep);
+```shell
+php artisan vendor:publish --tag=livecontrols.autoaddress.config
 ```
-The $response object contains the following variables:
-- $status => The status of the response, can also be tested with $response->isValid()
-- $cep => The CEP of the address, this is identical to the $cep sent to the server
-- $ibge => The IBGE of the address
-- $ddd => The phone DDD of the address
-- $street => The street of the address
-- $complement => The complement of the address
-- $area => The area of the address
-- $city => The city of the address
-- $state => The state of the address
-- $uf => The UF of the address
-- $country => The country of the address (In case of CepAberto its always Brazil)
-- $longitude => The longitude of the address (Can be null!)
-- $latitude => The latitude of the address (Can be null!)
-- $altitude => The altitude of the address (Can be null!)
-4. If environment variables dont work, try publish the configuration file, this will probably be patched in the future.
+
+The published file is `config/livecontrols_autoaddress.php`.
+
+## Address lookup
+
+### CepAberto (Brazil)
+
+```php
+use LiveControls\AutoAddress\Objects\CepAbertoResponse;
+
+$response = new CepAbertoResponse('01000-001');
+
+if ($response->isValid()) {
+    echo $response->street;
+    echo $response->city;
+    echo $response->state;
+}
+```
+
+`CepAbertoResponse` exposes `status`, `cep`, `ibge`, `ddd`, `street`,
+`complement`, `area`, `city`, `state`, `uf`, `country`, `longitude`,
+`latitude`, and `altitude`.
+
+### ViaCEP
+
+```php
+use LiveControls\AutoAddress\Scripts\ViaCep;
+
+$address = ViaCep::fromCep('01000-001');
+```
+
+The result includes a `statusText` value of `ok`, `invalid`, or
+`connection_error`.
+
+### ZipCodebase
+
+Set `ZIPCODEBASE_TOKEN` in `.env`, then use the response object:
+
+```php
+use LiveControls\AutoAddress\Objects\ZipCodebaseResponse;
+
+$response = new ZipCodebaseResponse('10001', 'us');
+```
+
+The response exposes `isValid()`, `status`, and the returned `results`.
+
+## Livewire component
+
+Use the registered component in a Livewire view:
+
+```blade
+<livewire:livecontrols-autoaddress />
+```
+
+Set the component's `backend` to `cepaberto` (the default) or `zipcodebase`.
+The component also supports custom field names, prefixes, required fields,
+and loading values from an existing model.
+
+## GeoIP lookup
+
+GeoIP support uses a MaxMind GeoIP2 City `.mmdb` database. Configure the
+database path and enable the feature in `.env`:
+
+```dotenv
+GEOIP2_ENABLED=true
+GEOIP2_DATABASE_PATH=/absolute/path/to/GeoIP2-City.mmdb
+```
+
+Then resolve an IP address:
+
+```php
+use LiveControls\AutoAddress\Scripts\GeoIp;
+
+$location = GeoIp::fromIp(request()->ip());
+
+echo $location->city;
+echo $location->state;
+echo $location->country;
+```
+
+`GeoIp::fromIp()` returns a `GeoIpResponse` with `ip`, `areacode`, `city`,
+`state`, and `country`. Reader and record lookups are cached by default:
+
+```php
+$record = GeoIp::getRecord('8.8.8.8', useCache: false);
+$reader = GeoIp::getReader(cacheTime: 7200);
+```
+
+If GeoIP is enabled but the database cannot be found, the helper throws an
+exception instead of silently returning incomplete data. An IP not found in
+the database returns a response containing only the IP address.
+
+## Translations
+
+The package includes English (`en`), German (`de`), and Brazilian Portuguese
+(`pt_BR`) translations. Publish them with:
+
+```shell
+php artisan vendor:publish --tag=livecontrols.autoaddress.localization
+```
+
+## Laravel Boost
+
+Laravel Boost automatically discovers this package's AI guidance. In a
+Laravel application, install Boost and generate its resources with:
+
+```shell
+composer require laravel/boost --dev
+php artisan boost:install
+```
+
+The package guidance is stored in
+`resources/boost/guidelines/core.blade.php` and is included when Boost
+generates `AGENTS.md` or other agent instructions.
+
+## License
+
+AutoAddress is open-sourced software licensed under the [MIT license](LICENSE).
