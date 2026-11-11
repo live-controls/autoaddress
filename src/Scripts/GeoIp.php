@@ -4,6 +4,7 @@ namespace LiveControls\AutoAddress\Scripts;
 
 use GeoIp2\Database\Reader;
 use Illuminate\Support\Facades\Cache;
+use LiveControls\AutoAddress\Objects\GeoIpResponse;
 
 class GeoIp
 {
@@ -29,10 +30,6 @@ class GeoIp
 
     public static function getRecord(string $ipAddress, bool $useCache = true, int $cacheTime = 3600): ?\GeoIp2\Model\City
     {
-        if(! self::isUsable()) {
-            return null;
-        }
-
         $reader = self::getReader();
 
         if($useCache) {
@@ -51,5 +48,26 @@ class GeoIp
         } catch (\GeoIp2\Exception\AddressNotFoundException $e) {
             return null;
         }
+    }
+
+    public static function fromIp(string $ipAddress): GeoIpResponse
+    {
+        $record = self::getRecord($ipAddress);
+
+        if (! $record) {
+            return new GeoIpResponse([
+                'ip' => $ipAddress,
+            ]);
+        }
+
+        return new GeoIpResponse(
+            [
+                'ip' => $ipAddress,
+                'areacode' => $record->postal->code,
+                'city' => $record->city->name,
+                'state' => $record->mostSpecificSubdivision->name,
+                'country' => $record->country->isoCode,
+            ]
+        );
     }
 }
